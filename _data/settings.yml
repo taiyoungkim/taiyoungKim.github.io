@@ -4,7 +4,7 @@ analytics-id: #leave blank to not use Analytics
 #Subtitle
 subtitle:
   active: true
-  text: Yet Another Minimal Theme
+  text: Android관련 쓰면서 공부하기 중
 
 #Nav 
 nav:
