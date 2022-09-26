@@ -1,52 +1,45 @@
 ---
 layout: default
-title: Home
 ---
-{% for post in paginator.posts %}
 
-<div class="post">
-    <h2 id = "post-title"><a href="{{ post.url  | relative_url }}">{{ post.title }}</a></h2>
+{% include home-header.html %}
 
-    {% if site.data.settings.date-under-post.active %} 
-    <div class = "post-info">
-        <span>
-            <i class="far fa-calendar" aria-hidden="true"></i>
-            <time datetime="{{ post.date | date_to_xmlschema }}" class="by-line">{{ post.date | date_to_string }}</time> - <i class="far fa-clock"></i> 
-            {% include reading_time.html %}
-        </span>
+<div class="posts">
+  {% for post in paginator.posts %}
+  <section class="post-entry">
+    <h2 class="post-title">
+      <a href="{{ post.url | relative_url }}">
+        {{ post.title }}
+      </a>
+    </h2>
+
+    <div class="post-meta">
+      <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date_to_string }}</time>
+      {%- if jekyll.environment == "production" and site.disqus -%}
+        <span> • </span>
+        <a class="comment-count" href="{{ post.url | relative_url }}#disqus_thread">
+          <span class="disqus-comment-count" data-disqus-url="{{ post.url | absolute_url }}"></span>
+        </a>
+      {%- endif -%}
     </div>
-    {% endif %}
 
-    {% if site.data.settings.featured-img.active %}
-    <div class = "featured-img-container">
-    {% if post.image %}
-        <a href="{{ post.url | relative_url }}"><img src="{{ post.image | relative_url }}"/></a>
-    {% endif %}
-    {% if post.gif %}
-        <a href="{{ post.url | relative_url }}">{% include gif.html file = post.gif %}</a>
-    {% endif %}
-    </div>
-    {% endif %}
-
-    <p>
-        {% if post.customexcerpt %}
-            {{post.customexcerpt | strip_html | truncatewords:50}}
-        {% else %}
-            {{ post.content | strip_html | truncatewords:50 }}
-        {% endif %}
-        <span class = "continue-reading"><a href="{{ post.url | relative_url }}">Continue reading...</a></span>
-    </p> 
+    <p>{{ post.excerpt | strip_html }}</p>
+  </section>
+  {% endfor %}
+  {%- if jekyll.environment == "production" and site.disqus -%}
+    <script id="dsq-count-scr" src="//{{ site.disqus }}.disqus.com/count.js" async></script>
+  {%- endif -%}
 </div>
-{% endfor %}
 
-<!-- Pagination links -->
-<div class = "paginator">
-    {% if paginator.total_pages > 1 %}
-    {% if paginator.next_page %}
-      <a class = "older paginate-button" href="{{ paginator.next_page_path | relative_url }}">Older Posts</a>
-    {% endif %}
-    {% if paginator.previous_page %}
-    <a class = "newer paginate-button" href="{{ paginator.previous_page_path | relative_url }}">Newer Posts</a>
+<div class="pagination">
+  {% if paginator.next_page %}
+    <a class="pagination-item older" href="{{ paginator.next_page_path | relative_url }}">Older</a>
+  {% else %}
+    <span class="pagination-item older">Older</span>
   {% endif %}
+  {% if paginator.previous_page %}
+    <a class="pagination-item newer" href="{{ paginator.previous_page_path | prepend: relative_url }}">Newer</a>
+  {% else %}
+    <span class="pagination-item newer">Newer</span>
   {% endif %}
 </div>

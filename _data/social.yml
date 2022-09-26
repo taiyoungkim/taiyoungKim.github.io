@@ -1,10 +1,9 @@
-# These are the socials supported by default. If you want to add one which isn't present, find the icon name on https://fontawesome.com/
-# and add it's color in /_sass/social.scss. Brand defines Font Awesome's font type (fas is solid, fab is brand).
-
-
-social:
-  - {icon: 'github', type: "brand", link: 'https://github.com/taiyoungkim'}
-  - {icon: 'linkedin', type: "brand", link: 'https://www.linkedin.com/in/taeyoung-kim-014329240'}
-  
-  - {icon: 'envelope', type: "solid", link: 'ktyoung153@gmail.com'}
-  - {icon: 'rss', type: "solid", link: "/feed.xml"}
+- title: Email
+  url: mailto://ktyoung153@gmail.com
+  icon: fas fa-envelope
+- title: LinkedIn
+  url: https://www.linkedin.com/in/taeyoung-kim-014329240
+  icon: fab fa-linkedin
+- title: GitHub
+  url: https://github.com/taiyoungkim
+  icon: fab fa-github
